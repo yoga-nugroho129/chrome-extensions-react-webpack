@@ -30,7 +30,7 @@
 
 ## 7. Webpack Setup `https://webpack.js.org/concepts/`
 
-- `npm install webpack webpack-cli`
+- `npm install -D webpack webpack-cli`
 - create `webpack.config.js` at root levet
 - write webpack code
 
@@ -52,3 +52,47 @@ module.exports = {
   `"build": "webpack --config webpack.config.js"`
 
 ## 8. Setup webpack loaders
+
+- add module code in the webpack.config.js
+
+```
+module: {
+    rules: [{
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader',
+        options: ['@babel/preset-env, @babel/preset-react']
+      }
+    }],
+  },
+```
+
+- install @babel/preset-env, @babel/preset-react
+  `npm install -D babel-loader @babel/core @babel/preset-env @babel/preset-react`
+
+## 9. Setup webpack plugin to add manifest.json on build directory
+
+- install html webpack plugin `npm install -D html-webpack-plugin`
+- add plugin code on webpack config to generate html file on build dir
+
+```
+plugins: [new HtmlWebpackPlugin({
+  template: './src/popup.html',
+  filename: 'popup.html'
+})],
+```
+
+- install copy webpack plugins for copy-paste inside spesific folder to build dir
+  `npm install -D copy-webpack-plugin`
+- Add copy plugin code to webpack config
+
+```
+new CopyPlugin({
+  patterns: [
+    { from: "public", to: "dest" }
+  ],
+}),
+```
+
+- run `npm run build` & the `manifest.json` is available
