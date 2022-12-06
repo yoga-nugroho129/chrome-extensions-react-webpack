@@ -96,3 +96,48 @@ new CopyPlugin({
 ```
 
 - run `npm run build` & the `manifest.json` is available
+
+## 9. Setup development extension from chrome
+
+- Open `chrome://extensions`
+- Active the `developer mode`
+- Click `Load unpacked`
+- Select `dist` folder
+
+## 10. Setup development on chrome tab
+
+- Copy extension ID
+- visit `chrome-extension://<extension-ID>/popup.html`
+
+## 11. Setup webpack build mode (production & development)
+
+- Install `npm install -D webpack-merge`
+- Create `webpack.prod.js` & `webpack.dev.js`
+- Add code on `webpack.dev.js`
+
+```
+const { merge } = require('webpack-merge');
+const config = require('./webpack.config.js');
+
+module.exports = merge(config, {
+  mode: 'development',
+  devtool: 'inline-source-map'
+});
+
+```
+
+- Add code on `webpack.prod.js`
+
+```
+const { merge } = require('webpack-merge');
+const config = require('./webpack.config.js');
+
+module.exports = merge(config, {
+  mode: 'production'
+});
+
+```
+
+- add dev script on package.json
+  `"dev": "webpack --watch --config webpack.dev.js"`
+- run `npm run dev` so webpack will re-build everytime changes on code
