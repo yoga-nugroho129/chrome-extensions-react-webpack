@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 function Popup() {
   return (
@@ -10,4 +10,6 @@ function Popup() {
   );
 }
 
-render(<Popup/>, document.getElementById("chrome-extension"));
+const root = createRoot(document.getElementById("chrome-extension"))
+
+root.render(<Popup/>);
